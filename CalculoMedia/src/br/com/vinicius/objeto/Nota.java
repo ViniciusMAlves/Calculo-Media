@@ -36,7 +36,7 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" + "disciplica=" + disciplica + ", nota=" + nota + '}';
+        return "Nota{" + "disciplica=" + disciplica + ", nota=" + nota + "}\n";
     }
     
     

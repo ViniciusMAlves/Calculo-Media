@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Pricipal extends javax.swing.JFrame {
      ArrayList<Aluno> alunos = new ArrayList<>();
-    
+     ArrayList<Nota> notas = new ArrayList<>();
      float calculo;
    
     
@@ -66,7 +66,7 @@ public class Pricipal extends javax.swing.JFrame {
         jLCalculoMedia.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLCalculoMedia.setText("Calculo de medias");
 
-        jPAluno.setBorder(new javax.swing.border.MatteBorder(null));
+        jPAluno.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 51)));
 
         jLAlunos.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLAlunos.setText("Aluno");
@@ -127,7 +127,8 @@ public class Pricipal extends javax.swing.JFrame {
                 .addGap(37, 37, 37))
         );
 
-        jPNomeDisciplina.setBorder(new javax.swing.border.MatteBorder(null));
+        jPNomeDisciplina.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 51)));
+        jPNomeDisciplina.setForeground(new java.awt.Color(51, 51, 51));
 
         jLNomeDisciplina.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLNomeDisciplina.setText("Nome da Disciplina");
@@ -170,7 +171,8 @@ public class Pricipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPNotas.setBorder(new javax.swing.border.MatteBorder(null));
+        jPNotas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 51)));
+        jPNotas.setForeground(new java.awt.Color(102, 102, 102));
 
         jLNotas.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLNotas.setText("Notas");
@@ -289,6 +291,25 @@ public class Pricipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
+       TipoAvaliacao tipo = null;
+       switch(jCBDisciplina.getSelectedIndex()){
+           case 1:{
+              tipo = TipoAvaliacao.prova;
+              break;
+           }
+           case 2:{
+               tipo = TipoAvaliacao.seminario;
+               break;
+           }
+           case 3:{
+               tipo = TipoAvaliacao.trabalho;
+               break;
+           }
+       }
+       
+               
+        
+               
         float n1,n2,n3,n4;
         
         n1=Float.parseFloat(jTFN1.getText());
@@ -309,20 +330,25 @@ public class Pricipal extends javax.swing.JFrame {
         int matricula;
         float nota;
         
+        try{
         matricula =Integer.parseInt(jTFMatricula.getText() );
         nome = jTFNome.getText();
         disciplina = jTFNomeDisciplica.getText();
         nota=calculo;
+        }catch(NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, nfe);
+            throw new RuntimeException();
+        }
         
-       Aluno a = new Aluno(nome, matricula);
-       Nota n = new Nota(disciplina, nota);
-      //alunos.get(alunos.size()-1).getNotas().add(new Nota(disciplina, nota)); 
+       
+      notas.add(new Nota(disciplina, nota));
+       alunos.add( new Aluno(nome, matricula));
         
-       JOptionPane.showMessageDialog(this, a.toString()+"\n"+n.toString()); 
+       JOptionPane.showMessageDialog(this, alunos.toString()+"\n"+notas.toString()); 
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jCBDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBDisciplinaActionPerformed
-        new javax.swing.DefaultComboBoxModel(TipoAvaliacao.values());
+        
     }//GEN-LAST:event_jCBDisciplinaActionPerformed
 
     /**
