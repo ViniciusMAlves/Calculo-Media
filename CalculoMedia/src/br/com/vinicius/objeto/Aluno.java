@@ -17,7 +17,7 @@ import java.util.List;
 public class Aluno {
     private String nome;
     private int matricula;
-    private ArrayList<Nota> notas= new ArrayList<>();
+    private ArrayList<Nota> notas= new ArrayList<>() ;
 
     public Aluno(String nome, int matricula) {
         this.nome = nome;

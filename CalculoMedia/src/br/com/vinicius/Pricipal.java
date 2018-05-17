@@ -16,11 +16,14 @@ import javax.swing.JOptionPane;
  * @author SATC
  */
 public class Pricipal extends javax.swing.JFrame {
-     ArrayList<Aluno> alunos = new ArrayList<>();
-     ArrayList<Nota> notas = new ArrayList<>();
-     float calculo;
-   
+
+    ArrayList<Aluno> alunos = new ArrayList<>();
+    ArrayList<Nota> notas = new ArrayList<>();
+    ArrayList<TipoAvaliacao> tipos = new ArrayList<>();
+    TipoAvaliacao tipo = null;
+    float calculo, n1, n2, n3, n4;
     
+
     /**
      * Creates new form Pricipal
      */
@@ -37,6 +40,7 @@ public class Pricipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToggleButton1 = new javax.swing.JToggleButton();
         jLCalculoMedia = new javax.swing.JLabel();
         jPAluno = new javax.swing.JPanel();
         jLAlunos = new javax.swing.JLabel();
@@ -60,6 +64,8 @@ public class Pricipal extends javax.swing.JFrame {
         jTFN3 = new javax.swing.JTextField();
         jTFN4 = new javax.swing.JTextField();
         jBCalcular = new javax.swing.JButton();
+
+        jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,15 +269,15 @@ public class Pricipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jLCalculoMedia))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPNomeDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPNotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPNotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(jLCalculoMedia)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -291,64 +297,60 @@ public class Pricipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-       TipoAvaliacao tipo = null;
-       switch(jCBDisciplina.getSelectedIndex()){
-           case 1:{
-              tipo = TipoAvaliacao.prova;
-              break;
-           }
-           case 2:{
-               tipo = TipoAvaliacao.seminario;
-               break;
-           }
-           case 3:{
-               tipo = TipoAvaliacao.trabalho;
-               break;
-           }
-       }
+
+        switch (jCBDisciplina.getSelectedIndex()) {
+            case 1: {
+                tipo = TipoAvaliacao.prova;
+                break;
+            }
+            case 2: {
+                tipo = TipoAvaliacao.seminario;
+                break;
+            }
+            case 3: {
+                tipo = TipoAvaliacao.trabalho;
+                break;
+            }
+        }
+
+        
+
+        n1 = Float.parseFloat(jTFN1.getText());
+        n2 = Float.parseFloat(jTFN2.getText());
+        n3 = Float.parseFloat(jTFN3.getText());
+        n4 = Float.parseFloat(jTFN4.getText());
+
+        calculo = (n1 + n2 + n3 + n4) / 4;
+
+        JOptionPane.showMessageDialog(this, "A media é de :" + calculo);
        
-               
-        
-               
-        float n1,n2,n3,n4;
-        
-        n1=Float.parseFloat(jTFN1.getText());
-        n2=Float.parseFloat(jTFN2.getText());
-        n3=Float.parseFloat(jTFN3.getText());
-        n4=Float.parseFloat(jTFN4.getText());
-        
-        
-        
-        calculo=(n1+n2+n3+n4)/4;
-       
-        JOptionPane.showMessageDialog(this, calculo);
     }//GEN-LAST:event_jBCalcularActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        
-        String nome,disciplina;
+
+        String nome, disciplina;
         int matricula;
         float nota;
-        
-        try{
-        matricula =Integer.parseInt(jTFMatricula.getText() );
-        nome = jTFNome.getText();
-        disciplina = jTFNomeDisciplica.getText();
-        nota=calculo;
-        }catch(NumberFormatException nfe){
+
+        try {
+            matricula = Integer.parseInt(jTFMatricula.getText());
+            nome = jTFNome.getText();
+            disciplina = jTFNomeDisciplica.getText();
+            nota = calculo;
+        } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, nfe);
             throw new RuntimeException();
         }
-        
-       
-      notas.add(new Nota(disciplina, nota));
-       alunos.add( new Aluno(nome, matricula));
-        
-       JOptionPane.showMessageDialog(this, alunos.toString()+"\n"+notas.toString()); 
+
+        notas.add(new Nota(disciplina, nota));
+        alunos.add(new Aluno(nome, matricula));
+        tipos.add(tipo);
+
+        JOptionPane.showMessageDialog(this, alunos.toString() + "\n" + notas.toString() + "\n" + tipos.toString());
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jCBDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBDisciplinaActionPerformed
-        
+
     }//GEN-LAST:event_jCBDisciplinaActionPerformed
 
     /**
@@ -410,6 +412,7 @@ public class Pricipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTFN4;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFNomeDisciplica;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
     private void add(float n1) {
