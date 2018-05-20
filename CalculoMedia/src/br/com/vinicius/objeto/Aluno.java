@@ -17,21 +17,23 @@ import java.util.List;
 public class Aluno {
     private String nome;
     private int matricula;
-    private ArrayList<Nota> notas= new ArrayList<>() ;
+    private List<Nota> notas ;
 
     public Aluno(String nome, int matricula) {
         this.nome = nome;
         this.matricula = matricula;
-       
+        notas= new ArrayList<>();
     }
 
-    public ArrayList<Nota> getNotas() {
+    public List<Nota> getNotas() {
         return notas;
     }
 
-    public void setNotas(ArrayList<Nota> notas) {
+    public void setNotas(List<Nota> notas) {
         this.notas = notas;
     }
+
+   
 
 
     public String getNome() {
@@ -59,7 +61,7 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return "Aluno{" + "nome=" + nome + ", matricula=" + matricula + ", notas=" + notas + "}\n";
+        return "Aluno{" + "nome=" + nome + ", matricula=" + matricula + "\n notas=" + notas + '}';
     }
 
    

@@ -11,12 +11,26 @@ package br.com.vinicius.objeto;
  */
 public class Nota {
     private String disciplica;
-    private float nota;    
+    private float nota;
+    private TipoAvaliacao tipo;    
 
-    public Nota(String disciplica, float nota) {
+    public Nota(String disciplica, float nota, TipoAvaliacao tipo) {
         this.disciplica = disciplica;
         this.nota = nota;
+        this.tipo = tipo;
     }
+
+    public TipoAvaliacao getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoAvaliacao tipo) {
+        this.tipo = tipo;
+    }
+
+   
+
+    
 
     public String getDisciplica() {
         return disciplica;
@@ -36,8 +50,10 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" + "disciplica=" + disciplica + ", nota=" + nota + "}\n";
+        return "Nota{" + "disciplina=" + disciplica + ", nota=" + nota + ", tipo=" + tipo + "}\n";
     }
+
+    
     
     
 }

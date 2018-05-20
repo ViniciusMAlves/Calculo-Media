@@ -17,12 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class Pricipal extends javax.swing.JFrame {
 
-    ArrayList<Aluno> alunos = new ArrayList<>();
-    ArrayList<Nota> notas = new ArrayList<>();
-    ArrayList<TipoAvaliacao> tipos = new ArrayList<>();
-    TipoAvaliacao tipo = null;
+  
+
     float calculo, n1, n2, n3, n4;
-    
 
     /**
      * Creates new form Pricipal
@@ -297,56 +294,65 @@ public class Pricipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-
-        switch (jCBDisciplina.getSelectedIndex()) {
-            case 1: {
-                tipo = TipoAvaliacao.prova;
-                break;
-            }
-            case 2: {
-                tipo = TipoAvaliacao.seminario;
-                break;
-            }
-            case 3: {
-                tipo = TipoAvaliacao.trabalho;
-                break;
-            }
-        }
-
-        
-
+        try{
         n1 = Float.parseFloat(jTFN1.getText());
         n2 = Float.parseFloat(jTFN2.getText());
         n3 = Float.parseFloat(jTFN3.getText());
         n4 = Float.parseFloat(jTFN4.getText());
+        }catch(NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, nfe);
+        }catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(this, npe);
+        }
 
         calculo = (n1 + n2 + n3 + n4) / 4;
-
         JOptionPane.showMessageDialog(this, "A media é de :" + calculo);
-       
     }//GEN-LAST:event_jBCalcularActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-
-        String nome, disciplina;
+        String nome;
         int matricula;
         float nota;
 
         try {
             matricula = Integer.parseInt(jTFMatricula.getText());
             nome = jTFNome.getText();
-            disciplina = jTFNomeDisciplica.getText();
             nota = calculo;
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, nfe);
             throw new RuntimeException();
         }
+        Aluno a = new Aluno(nome, matricula);
 
-        notas.add(new Nota(disciplina, nota));
-        alunos.add(new Aluno(nome, matricula));
-        tipos.add(tipo);
+        TipoAvaliacao tipo = null;
+        switch (jCBDisciplina.getSelectedIndex()) {
+            case 1: {
+                tipo = TipoAvaliacao.prova;
+                break;
+            }
+            case 2: {
+                tipo = TipoAvaliacao.trabalho;
+                break;
+            }
+            case 3: {
+                tipo = TipoAvaliacao.seminario;
+                break;
+            }
+        }
+        try{
+        a.getNotas().add(new Nota(jTFNomeDisciplica.getText(), Float.parseFloat(jTFN1.getText()), tipo));
+        a.getNotas().add(new Nota(jTFNomeDisciplica.getText(), Float.parseFloat(jTFN2.getText()), tipo));
+        a.getNotas().add(new Nota(jTFNomeDisciplica.getText(), Float.parseFloat(jTFN3.getText()), tipo));
+        a.getNotas().add(new Nota(jTFNomeDisciplica.getText(), Float.parseFloat(jTFN4.getText()), tipo));
+        }catch(NumberFormatException nfr){
+            JOptionPane.showMessageDialog(this,"Você colocou um caracter errado \n"+ nfr);
+        }catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(this,"Você deixou um espaço em branco \n"+ npe);
+        }
 
-        JOptionPane.showMessageDialog(this, alunos.toString() + "\n" + notas.toString() + "\n" + tipos.toString());
+        JOptionPane.showMessageDialog(this, a.toString());
+
+
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jCBDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBDisciplinaActionPerformed
